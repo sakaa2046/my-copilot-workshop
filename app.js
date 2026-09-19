@@ -1,6 +1,7 @@
 // 待辦清單資料的 localStorage 鍵名稱
 const STORAGE_KEY = "todo-list-items";
 const THEME_KEY = "todo-theme-preference";
+const FILTER_KEY = "todo-filter-preference";
 
 // 取得畫面上的元素
 const todoForm = document.getElementById("todo-form");
@@ -12,6 +13,17 @@ const themeToggle = document.getElementById("theme-toggle");
 const filterButtons = document.querySelectorAll(".filter-btn");
 
 let currentFilter = "all";
+
+// 取得最後選擇的篩選條件，若 localStorage 值不合法則回退成「全部」
+function getPreferredFilter() {
+  const savedFilter = localStorage.getItem(FILTER_KEY);
+
+  if (savedFilter === "all" || savedFilter === "active" || savedFilter === "completed") {
+    return savedFilter;
+  }
+
+  return "all";
+}
 
 // 從 localStorage 讀取待辦事項
 function loadTasks() {
@@ -201,13 +213,20 @@ function addTask(event) {
 // 監聽篩選按鈕點選
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    currentFilter = button.dataset.filter;
+    const nextFilter = button.dataset.filter;
+
+    if (nextFilter === "all" || nextFilter === "active" || nextFilter === "completed") {
+      currentFilter = nextFilter;
+      localStorage.setItem(FILTER_KEY, currentFilter);
+    }
+
     updateFilterButtons();
     renderTasks();
   });
 });
 
 // 初始化頁面
+currentFilter = getPreferredFilter();
 applyTheme(getPreferredTheme());
 updateFilterButtons();
 renderTasks();
