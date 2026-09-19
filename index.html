@@ -53,7 +53,18 @@
       </p>
 
       <footer class="todo-footer">
-        <span id="todo-count">未完成: 0 項</span>
+        <div class="footer-actions">
+          <span id="todo-count">未完成: 0 項</span>
+          <button
+            id="clear-completed"
+            class="clear-completed-btn"
+            type="button"
+            aria-label="清除所有已完成項目"
+            hidden
+          >
+            清除已完成
+          </button>
+        </div>
       </footer>
     </main>
 
