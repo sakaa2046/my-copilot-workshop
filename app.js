@@ -82,11 +82,11 @@ function getVisibleTasks(tasks) {
 // 依照目前篩選狀態回傳對應空狀態文字
 function getEmptyMessage() {
   if (currentFilter === "active") {
-    return "目前沒有未完成的待辦事項";
+    return "目前沒有未完成的待辦事項。若剛剛將項目標記為完成，該項目已被篩選移出，請切換到「全部」或「已完成」檢視。";
   }
 
   if (currentFilter === "completed") {
-    return "目前沒有已完成的待辦事項";
+    return "目前沒有已完成的待辦事項。若剛剛取消勾選，該項目已改為未完成，請切換到「全部」或「未完成」查看。";
   }
 
   return "還沒有任何待辦事項,新增一個吧!";
